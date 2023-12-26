@@ -10,5 +10,6 @@ module.exports = {
     `gatsby-plugin-svgr`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-fontawesome-css`,
   ],
 }

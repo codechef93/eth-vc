@@ -4,6 +4,11 @@ import logoSvg from "../assets/svg-icons/logo.svg"
 import enSvg from "../assets/svg-icons/lang_en.svg"
 import deSvg from "../assets/svg-icons/lang_de.svg"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faBars
+} from '@fortawesome/free-solid-svg-icons'
+
 const HeaderSection = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -20,8 +25,10 @@ const HeaderSection = () => {
                         <a href="#" className="navigation-link w-nav-link">Pricing</a>
                         <a href="#" className="navigation-link w-nav-link">Contact Us</a>
                     </nav>
-                    <div className="menu-button w-nav-button my-text" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                        <div className="w-icon-nav-menu"></div>
+                    <div className="menu-button w-nav-button my-text" onClick={() => setIsMenuOpen(!isMenuOpen)} style={isMenuOpen ? { color: 'white', backgroundColor: '#393b6a' } : {}}>
+                        <div className="my-nav-icon">
+                            <FontAwesomeIcon icon={faBars} size="2xs" />
+                        </div>
                     </div>
                     <div className="wg-element">
                         <div className="wg-element-wrapper sw12">
@@ -48,12 +55,12 @@ const HeaderSection = () => {
                     </a>
                 </div>
             </div>
-            <div className="w-nav-overlay" style={isMenuOpen ? { display: "block", height: 12000 } : {}}>
-                <nav role="navigation" class="navigation-menu w-nav-menu my-animation my-wg-button" style={isMenuOpen ? { top: 0 } : { top: 12000 }}>
-                    <a href="#" class="navigation-link w-nav-link w--nav-link-open">Categories</a>
-                    <a href="#" class="navigation-link w-nav-link w--nav-link-open">Services</a>
-                    <a href="#" class="navigation-link w-nav-link w--nav-link-open">Pricing</a>
-                    <a href="#" class="navigation-link w-nav-link w--nav-link-open">Contact Us</a>
+            <div className="w-nav-overlay my-block" style={{ height: isMenuOpen ? 12000 : 400 }}>
+                <nav role="navigation" className="navigation-menu my-animation" data-nav-menu-open style={isMenuOpen ? { transform: "translateY(0)" } : { transform: "translateY(-200px)" }}>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Categories</a>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Services</a>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Pricing</a>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Contact Us</a>
                 </nav>
             </div>
         </div >
