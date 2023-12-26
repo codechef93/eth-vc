@@ -58,8 +58,8 @@ const TabSection = () => {
 
     const tabPaneClass = (index) => {
         if (index === tab)
-            return "tab-pane w-tab-pane fade-in w--tab-active";
-        return "tab-pane fade-out w-tab-pane";
+            return "fade-in";
+        return "fade-out";
     }
 
     return (

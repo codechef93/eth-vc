@@ -18,14 +18,14 @@ import "../assets/css/custom.css"
 const IndexPage = () => {
   return (
     <div>
-      {/*<HeaderSection />*/}
+      <HeaderSection />
       <HeroSection />
       <ProcessSection />
       <RegularSection />
       <CategoriesSection />
       <CTASection />
       <TabSection />
-      {/*<RegularSection2 />*/}
+      <RegularSection2 />
       <FAQSection />
       <CTASection2 />
       <FooterSection />
