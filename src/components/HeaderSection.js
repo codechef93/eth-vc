@@ -17,6 +17,8 @@ const HeaderSection = ({ props }) => {
     const [isEntered, setEntered] = React.useState(false);
     const { t, i18n } = useTranslation()
 
+    const menuRef = React.useRef(null);
+
     const onChangeLanguage = () => {
         i18n.changeLanguage(!currentLanguage? 'de' : 'en');
         setCurrentLanguage(!currentLanguage);
@@ -29,6 +31,23 @@ const HeaderSection = ({ props }) => {
     const onMouseLeave = (e) => {
         setEntered(false);
     }
+
+    React.useEffect(() => {
+        const handleOutsideClick = (event) => {
+          // Check if the clicked element is inside the menu
+          if (menuRef.current && !menuRef.current.contains(event.target) && !document.querySelector('.menu-button').contains(event.target)) {
+            setIsMenuOpen(false);
+          }
+        };
+    
+        // Attach click event listener to the document
+        document.addEventListener('click', handleOutsideClick);
+    
+        // Clean up the event listener on component unmount
+        return () => {
+          document.removeEventListener('click', handleOutsideClick);
+        };
+      }, []);
 
     return (
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className="navigation w-nav">
@@ -73,12 +92,12 @@ const HeaderSection = ({ props }) => {
                     </a>
                 </div>
             </div>
-            <div className="w-nav-overlay my-block" style={{ height: isMenuOpen ? 12000 : 400 }}>
-                <nav role="navigation" className="navigation-menu my-animation" data-nav-menu-open style={isMenuOpen ? { transform: "translateY(0)" } : { transform: "translateY(-200px)" }}>
-                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Categories</a>
-                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Services</a>
-                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Pricing</a>
-                    <a href="#" className="navigation-link w-nav-link w--nav-link-open">Contact Us</a>
+            <div className="w-nav-overlay my-block" style={{ height: isMenuOpen? 400 : 0, transition: 'height 0.3s ease-in-out', overflow: 'hidden' }}>
+                <nav role="navigation" className="navigation-menu my-animation" data-nav-menu-open ref={menuRef}>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open" onClick={() => setIsMenuOpen(false)}>Categories</a>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open" onClick={() => setIsMenuOpen(false)}>Services</a>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open" onClick={() => setIsMenuOpen(false)}>Pricing</a>
+                    <a href="#" className="navigation-link w-nav-link w--nav-link-open" onClick={() => setIsMenuOpen(false)}>Contact Us</a>
                 </nav>
             </div>
         </div >
