@@ -1,13 +1,17 @@
 backend:
-  name: test-repo
+  name: github
+  repo: codechef93/eth-vc
+  branch: main
   
-media_folder: static/assets
-public_folder: assets
+media_folder: content/images/
+public_folder: ../images/
   
 collections:
-  - name: blog
-    label: Blog
-    folder: blog
+  - name: blogs
+    label: Blogs
+    folder: "content/blogs"
+    identifier_field: "name"
+    extension: "json"
     create: true
     fields:
       - { name: path, label: Path }

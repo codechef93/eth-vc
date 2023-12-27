@@ -21,6 +21,20 @@ module.exports = {
           allowAdFeatures: false
         },
       }
-    }
+    },
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./content/`,
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "blogs",
+        path: "./content/blogs/",
+      },
+    },
   ]
 }
