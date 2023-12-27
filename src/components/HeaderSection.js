@@ -5,12 +5,30 @@ import enSvg from "../assets/svg-icons/lang_en.svg"
 import deSvg from "../assets/svg-icons/lang_de.svg"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from "react-i18next"
+
 import {
     faBars
 } from '@fortawesome/free-solid-svg-icons'
 
-const HeaderSection = () => {
+const HeaderSection = ({ props }) => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const [currentLanguage, setCurrentLanguage] = React.useState(false);
+    const [isEntered, setEntered] = React.useState(false);
+    const { t, i18n } = useTranslation()
+
+    const onChangeLanguage = () => {
+        i18n.changeLanguage(!currentLanguage? 'de' : 'en');
+        setCurrentLanguage(!currentLanguage);
+    }
+
+    const onMouseEnter = (e) => {
+        setEntered(true);
+    }
+
+    const onMouseLeave = (e) => {
+        setEntered(false);
+    }
 
     return (
         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className="navigation w-nav">
@@ -20,10 +38,10 @@ const HeaderSection = () => {
                 </a>
                 <div className="navigation-wrapper">
                     <nav role="navigation" className="navigation-menu w-nav-menu">
-                        <a href="#" className="navigation-link w-nav-link">Categories</a>
-                        <a href="#" className="navigation-link w-nav-link">Services</a>
-                        <a href="#" className="navigation-link w-nav-link">Pricing</a>
-                        <a href="#" className="navigation-link w-nav-link">Contact Us</a>
+                        <a href="#" className="navigation-link w-nav-link">{t('header.Categories')}</a>
+                        <a href="#" className="navigation-link w-nav-link">{t('header.Services')}</a>
+                        <a href="#" className="navigation-link w-nav-link">{t('header.Pricing')}</a>
+                        <a href="#" className="navigation-link w-nav-link">{t('header.ContactUs')}</a>
                     </nav>
                     <div className="menu-button w-nav-button my-text" onClick={() => setIsMenuOpen(!isMenuOpen)} style={isMenuOpen ? { color: 'white', backgroundColor: '#393b6a' } : {}}>
                         <div className="my-nav-icon">
@@ -33,14 +51,14 @@ const HeaderSection = () => {
                     <div className="wg-element">
                         <div className="wg-element-wrapper sw12">
                             <a data-w-id="99d82336-5868-6718-2104-915d49db5096" href="#" className="wg-button-1 w-inline-block">
-                                <div className="wg-button-1-lang-wrapper my-wg-button">
-                                    <div lang="de" className="wg-button-1-text-lang2 back-link">
+                                <div className="wg-button-1-lang-wrapper my-wg-button my-animation" style={{ transform: `${!isEntered? 'translate3d(0px, 0%, 0px)' : 'translate3d(0px, 100%, 0px)'} scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)`, transformStyle: 'preserve-3d'}} onClick={onChangeLanguage} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                                    <div lang="de" className={`${currentLanguage == true? 'wg-button-1-text-lang1 front-link' : 'wg-button-1-text-lang2 back-link'}`}>
                                         <div className="wg-flag v2">
                                             <img src={deSvg} alt="" className="wg-flag-ico" />
                                         </div>
                                         <div>De</div>
                                     </div>
-                                    <div lang="en" className="wg-button-1-text-lang1 front-link">
+                                    <div lang="en" className={`${currentLanguage == false? 'wg-button-1-text-lang1 front-link' : 'wg-button-1-text-lang2 back-link'}`}>
                                         <div className="wg-flag v2">
                                             <img src={enSvg} alt="" className="wg-flag-ico" />
                                         </div>
