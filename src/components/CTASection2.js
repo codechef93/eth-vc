@@ -1,6 +1,21 @@
 import * as React from "react"
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios'
+import 'react-toastify/dist/ReactToastify.css';
 
 const CTASection2 = () => {
+    const [email, setEmail] = React.useState();
+
+    const onSubscribe = async () => {
+        try {
+            await axios.post("http://localhost:1337/api/emails", { data: { address: email, description: 'Email Address for Subscription', status: 'registered' }});
+            toast.success("Subscription was successful!");
+        } catch (err) {
+            console.log(err);
+            toast.warning("Subscription was failed!");
+        }    
+    }
+
     return (
         <section className="section-cta">
             <div className="cta-block">
@@ -15,8 +30,8 @@ const CTASection2 = () => {
                     <div className="wrap-v-x-large align-c">
                         <div className="cta-form-block w-form">
                             <form className="form-h">
-                                <input type="email" className="text-field-round w-input" maxLength="256" placeholder="Enter Your Email" required="" />
-                                <input type="submit" value="Subscribe now" className="button-primary-l-3 w-button" />
+                                <input type="email" className="text-field-round w-input" maxLength="256" placeholder="Enter Your Email" required="" onChange={(e) => setEmail(e.target.value)} />
+                                <input type="button" value="Subscribe now" className="button-primary-l-3 w-button" onClick={onSubscribe}/>
                             </form>
                             <div className="w-form-done">
                                 <div>Thank you! Your submission has been received!</div>
@@ -28,6 +43,7 @@ const CTASection2 = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </section>
     )
 }
